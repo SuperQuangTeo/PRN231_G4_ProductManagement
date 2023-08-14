@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PRN231_G4_ProductManagement_BE.AutoMapping;
 using PRN231_G4_ProductManagement_BE.Models;
@@ -7,13 +8,38 @@ using PRN231_G4_ProductManagement_BE.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+//==============================================================
+builder.Services.AddDbContext<PRN231_Product_ManagementContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindCS"));
+});
+//==============================================================
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(1800);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+//==============================================================
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new UserMapping());
+    mc.AddProfile(new RoleMapping());
+    mc.AddProfile(new StoreMapping());
+   
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+//==============================================================
+
+
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -35,10 +61,7 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Member");
     });
 });
-builder.Services.AddDbContext<PRN231_Product_ManagementContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindCS"));
-});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

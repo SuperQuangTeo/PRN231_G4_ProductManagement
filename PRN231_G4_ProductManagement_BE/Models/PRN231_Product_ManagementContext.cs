@@ -26,7 +26,15 @@ namespace PRN231_G4_ProductManagement_BE.Models
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
-        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                string conStr = config.GetConnectionString("NorthwindCS");
+                optionsBuilder.UseSqlServer(conStr);
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
