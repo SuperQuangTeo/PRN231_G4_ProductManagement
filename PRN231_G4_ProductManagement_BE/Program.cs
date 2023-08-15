@@ -33,6 +33,8 @@ var mapperConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new UserMapping());
     mc.AddProfile(new RoleMapping());
     mc.AddProfile(new StoreMapping());
+    mc.AddProfile(new SupplierMapping());
+    mc.AddProfile(new CategoryMapping());
    
 });
 IMapper mapper = mapperConfig.CreateMapper();

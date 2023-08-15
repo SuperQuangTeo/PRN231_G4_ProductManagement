@@ -9,55 +9,55 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoresController : ControllerBase
+    public class CategorysController : ControllerBase
     {
         private PRN231_Product_ManagementContext _context;
         private IMapper _mapper;
-        public StoresController(PRN231_Product_ManagementContext context, IMapper mapper)
+        public CategorysController(PRN231_Product_ManagementContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        [HttpGet("GetAllStores")]
-        public IActionResult GetAllStores()
+        [HttpGet("GetAllCategories")]
+        public IActionResult GetAllCategories()
         {
-            List<Store> stores = new List<Store>();
+            List<Category> categories = new List<Category>();
 
-            stores = _context.Stores.ToList();
-            
-            return Ok(_mapper.Map<List<StoreDTO>>(stores));
+            categories = _context.Categories.ToList();
+
+            return Ok(_mapper.Map<List<CategoryDTO>>(categories));
         }
 
         [HttpGet]
-        [Route("GetStoreById/{id}")]
-        public IActionResult GetStoreById(int id)
+        [Route("GetCategoryById/{id}")]
+        public IActionResult GetCategoryById(int id)
         {
-            Store store = _context.Stores.Where(x => x.Id == id).SingleOrDefault();
+            Category category = _context.Categories.Where(x => x.Id == id).SingleOrDefault();
 
-            return Ok(_mapper.Map<StoreDTO>(store));
+            return Ok(_mapper.Map<CategoryDTO>(category));
         }
 
         [HttpDelete]
-        [Route("DeleteStoreById/{id}")]
-        public IActionResult DeleteStoreById(int id)
+        [Route("DeleteCategoryById/{id}")]
+        public IActionResult DeleteCategoryById(int id)
         {
             try
             {
-                var store = _context.Stores
-                    .Include(c => c.Exports)
+                var category = _context.Categories
+                    .Include(c => c.Products)
                     .Where(x => x.Id == id).SingleOrDefault();
-                if (store == null)
+                if (category == null)
                 {
                     return NotFound();
                 }
 
-                foreach (var exports in store.Exports.ToList())
+                foreach (var products in category.Products.ToList())
                 {
 
-                    _context.Exports.Remove(exports);
+                    _context.Products.Remove(products);
                 }
-                _context.Stores.Remove(store);
+                _context.Categories.Remove(category);
                 _context.SaveChanges();
 
                 return Ok("delete success");
@@ -69,15 +69,15 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
         }
 
         [HttpPost]
-        [Route("AddStoreById")]
-        public IActionResult AddStoreById([FromBody] StoreDTO store)
+        [Route("AddCategoryById")]
+        public IActionResult AddCategoryById([FromBody] CategoryDTO category)
         {
             try
             {
                 try
                 {
 
-                    _context.Stores.Add(_mapper.Map<Store>(store));
+                    _context.Categories.Add(_mapper.Map<Category>(category));
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -92,14 +92,14 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
             }
         }
         [HttpPut]
-        [Route("UpdateStoreById")] 
-        public IActionResult UpdateStoreById([FromBody] StoreDTO store)
+        [Route("UpdateCategoryById")]
+        public IActionResult UpdateCategoryById([FromBody] CategoryDTO category)
         {
             try
             {
                 try
                 {
-                    _context.Entry<Store>(_mapper.Map<Store>(store)).State = EntityState.Modified;
+                    _context.Entry<Category>(_mapper.Map<Category>(category)).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
                 catch (Exception e)

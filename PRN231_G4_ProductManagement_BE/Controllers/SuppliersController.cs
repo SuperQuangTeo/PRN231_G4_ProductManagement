@@ -9,55 +9,55 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoresController : ControllerBase
+    public class SuppliersController : ControllerBase
     {
         private PRN231_Product_ManagementContext _context;
         private IMapper _mapper;
-        public StoresController(PRN231_Product_ManagementContext context, IMapper mapper)
+        public SuppliersController(PRN231_Product_ManagementContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        [HttpGet("GetAllStores")]
-        public IActionResult GetAllStores()
+        [HttpGet("GetAllSuppliers")]
+        public IActionResult GetAllSuppliers()
         {
-            List<Store> stores = new List<Store>();
+            List<Supplier> suppliers = new List<Supplier>();
 
-            stores = _context.Stores.ToList();
-            
-            return Ok(_mapper.Map<List<StoreDTO>>(stores));
+            suppliers = _context.Suppliers.ToList();
+
+            return Ok(_mapper.Map<List<SupplierDTO>>(suppliers));
         }
 
         [HttpGet]
-        [Route("GetStoreById/{id}")]
-        public IActionResult GetStoreById(int id)
+        [Route("GetSupplierById/{id}")]
+        public IActionResult GetSupplierById(int id)
         {
-            Store store = _context.Stores.Where(x => x.Id == id).SingleOrDefault();
+            Supplier supplier = _context.Suppliers.Where(x => x.Id == id).SingleOrDefault();
 
-            return Ok(_mapper.Map<StoreDTO>(store));
+            return Ok(_mapper.Map<SupplierDTO>(supplier));
         }
 
         [HttpDelete]
-        [Route("DeleteStoreById/{id}")]
-        public IActionResult DeleteStoreById(int id)
+        [Route("DeleteSupplierById/{id}")]
+        public IActionResult DeleteSupplierById(int id)
         {
             try
             {
-                var store = _context.Stores
-                    .Include(c => c.Exports)
+                var supplier = _context.Suppliers
+                    .Include(c => c.Products)
                     .Where(x => x.Id == id).SingleOrDefault();
-                if (store == null)
+                if (supplier == null)
                 {
                     return NotFound();
                 }
 
-                foreach (var exports in store.Exports.ToList())
+                foreach (var products in supplier.Products.ToList())
                 {
 
-                    _context.Exports.Remove(exports);
+                    _context.Products.Remove(products);
                 }
-                _context.Stores.Remove(store);
+                _context.Suppliers.Remove(supplier);
                 _context.SaveChanges();
 
                 return Ok("delete success");
@@ -69,15 +69,15 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
         }
 
         [HttpPost]
-        [Route("AddStoreById")]
-        public IActionResult AddStoreById([FromBody] StoreDTO store)
+        [Route("AddSupplier")]
+        public IActionResult AddSupplier([FromBody] SupplierDTO supplier)
         {
             try
             {
                 try
                 {
 
-                    _context.Stores.Add(_mapper.Map<Store>(store));
+                    _context.Suppliers.Add(_mapper.Map<Supplier>(supplier));
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -92,14 +92,14 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
             }
         }
         [HttpPut]
-        [Route("UpdateStoreById")] 
-        public IActionResult UpdateStoreById([FromBody] StoreDTO store)
+        [Route("UpdateSupplierById")]
+        public IActionResult UpdateSupplierById([FromBody] SupplierDTO supplier)
         {
             try
             {
                 try
                 {
-                    _context.Entry<Store>(_mapper.Map<Store>(store)).State = EntityState.Modified;
+                    _context.Entry<Supplier>(_mapper.Map<Supplier>(supplier)).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
                 catch (Exception e)
