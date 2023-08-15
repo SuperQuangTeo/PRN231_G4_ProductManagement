@@ -36,7 +36,8 @@ var mapperConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new SupplierMapping());
     mc.AddProfile(new CategoryMapping());
     mc.AddProfile(new UnitMapping());
-   
+    mc.AddProfile(new ProductMapping());
+
 });
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
