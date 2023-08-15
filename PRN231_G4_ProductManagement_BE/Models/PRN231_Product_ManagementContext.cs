@@ -24,15 +24,15 @@ namespace PRN231_G4_ProductManagement_BE.Models
         public virtual DbSet<Spot> Spots { get; set; } = null!;
         public virtual DbSet<Store> Stores { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
+        public virtual DbSet<Unit> Units { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                string conStr = config.GetConnectionString("NorthwindCS");
-                optionsBuilder.UseSqlServer(conStr);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=MSI;Database=PRN231_Product_Management;User=sa;Password=123456");
             }
         }
 
@@ -71,6 +71,8 @@ namespace PRN231_G4_ProductManagement_BE.Models
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
+                entity.Property(e => e.Status).HasColumnName("status");
+
                 entity.Property(e => e.StoreId).HasColumnName("store_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -108,6 +110,8 @@ namespace PRN231_G4_ProductManagement_BE.Models
                 entity.Property(e => e.ImportQuantity).HasColumnName("import_quantity");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -150,6 +154,8 @@ namespace PRN231_G4_ProductManagement_BE.Models
 
                 entity.Property(e => e.SupplierId).HasColumnName("supplier_id");
 
+                entity.Property(e => e.UnitId).HasColumnName("unit_id");
+
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
@@ -159,6 +165,11 @@ namespace PRN231_G4_ProductManagement_BE.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.SupplierId)
                     .HasConstraintName("FK_Product_Supplier");
+
+                entity.HasOne(d => d.Unit)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.UnitId)
+                    .HasConstraintName("FK_Product_Unit");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -255,6 +266,17 @@ namespace PRN231_G4_ProductManagement_BE.Models
                 entity.Property(e => e.SupplierName)
                     .HasMaxLength(50)
                     .HasColumnName("supplier_name");
+            });
+
+            modelBuilder.Entity<Unit>(entity =>
+            {
+                entity.ToTable("Unit");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.UnitType)
+                    .HasMaxLength(50)
+                    .HasColumnName("unit_type");
             });
 
             modelBuilder.Entity<User>(entity =>

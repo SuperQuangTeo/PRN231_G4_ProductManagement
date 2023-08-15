@@ -12,6 +12,7 @@ namespace PRN231_G4_ProductManagement_BE.Models
         public int? ProductId { get; set; }
         public int? StoreId { get; set; }
         public int? UserId { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Product? Product { get; set; }
         public virtual Store? Store { get; set; }

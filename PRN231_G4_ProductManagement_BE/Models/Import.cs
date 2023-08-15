@@ -11,6 +11,7 @@ namespace PRN231_G4_ProductManagement_BE.Models
         public DateTime? ImportDate { get; set; }
         public int? ProductId { get; set; }
         public int? UserId { get; set; }
+        public bool? Status { get; set; }
 
         public virtual Product? Product { get; set; }
         public virtual User? User { get; set; }
