@@ -21,9 +21,11 @@ namespace PRN231_G4_ProductManagement_BE.Models
         public bool? Active { get; set; }
         public int? SupplierId { get; set; }
         public int? CategoryId { get; set; }
+        public int? UnitId { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Supplier? Supplier { get; set; }
+        public virtual Unit? Unit { get; set; }
         public virtual ICollection<Export> Exports { get; set; }
         public virtual ICollection<Import> Imports { get; set; }
         public virtual ICollection<Spot> Spots { get; set; }
