@@ -63,16 +63,16 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUnit"
                    aria-expanded="true" aria-controls="collapseUnit">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Unit</span>
                 </a>
-                <div id="collapseUnit" class="collapse show" aria-labelledby="headingUnit" data-parent="#accordionSidebar">
+                <div id="collapseUnit" class="collapse " aria-labelledby="headingUnit" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Unit:</h6>
-                        <a class="collapse-item active" href="/Unit">List all</a>
+                        <a class="collapse-item " href="/Unit">List all</a>
                         <a class="collapse-item " href="/Unit/Create">Add Unit</a>
                     </div>
                 </div>
@@ -108,16 +108,16 @@
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSuppliers"
                    aria-expanded="true" aria-controls="collapseSuppliers">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Suppliers</span>
                 </a>
-                <div id="collapseSuppliers" class="collapse" aria-labelledby="headingSuppliers" data-parent="#accordionSidebar">
+                <div id="collapseSuppliers" class="collapse show" aria-labelledby="headingSuppliers" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Suppliers:</h6>
-                        <a class="collapse-item " href="/Suppliers">List all</a>
+                        <a class="collapse-item active" href="/Suppliers">List all</a>
                         <a class="collapse-item " href="/Suppliers/Create">Add Suppliers</a>
                     </div>
                 </div>
@@ -418,24 +418,48 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800" style="display: flex; justify-content: center;">Product Unit</h1>
+                    <h1 class="h3 mb-2 text-gray-800" style="display: flex; justify-content: center;">Suppliers</h1>
                     <p class="mb-4">
                     </p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit Product Unit</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Edit Suppliers</h6>
                         </div>
                         <div class="card-body">
-                            <form asp-controller="unit" asp-action="Edit" method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                <input type="hidden" value="@Model.Id" name="unit.Id" />
+                            <form asp-controller="suppliers" asp-action="Edit" method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                <input type="hidden" value="@Model.Id" name="supplier.Id" />
                                 <input type="hidden" value="@Model.Id" name="id" />
 
-                                <p class="text-lg mb-0">Unit type</p><br />
+                                <p class="text-lg mb-0">Supplier name</p><br />
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Unit type..."
-                                           aria-label="Unit type..." aria-describedby="basic-addon2" name="unit.UnitType" value="@Model.UnitType">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Name..."
+                                           aria-label="Name..." aria-describedby="basic-addon2" name="supplier.SupplierName" value="@Model.SupplierName">
+                                </div>
+                                <br />
+                                <p class="text-lg mb-0">Description</p><br />
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Description..."
+                                           aria-label="Description..." aria-describedby="basic-addon2" name="supplier.Description" value="@Model.Description">
+                                </div>
+                                <br />
+                                <p class="text-lg mb-0">Address</p><br />
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Address..."
+                                           aria-label="Address..." aria-describedby="basic-addon2" name="supplier.Address" value="@Model.Address">
+                                </div>
+                                <br />
+                                <p class="text-lg mb-0">Phone</p><br />
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Phone..."
+                                           aria-label="Phone..." aria-describedby="basic-addon2" name="supplier.Phone" value="@Model.Phone"> 
+                                </div>
+                                <br />
+                                <p class="text-lg mb-0">Email</p><br />
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Email..."
+                                           aria-label="Email..." aria-describedby="basic-addon2" name="supplier.Email" value="@Model.Email">
                                 </div>
                                 <br />
                                 <button type="submit" value="edit" class="btn btn-success btn-icon-split">
