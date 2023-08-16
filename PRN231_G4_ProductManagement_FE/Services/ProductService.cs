@@ -23,5 +23,12 @@ namespace PRN231_G4_ProductManagement_FE.Services
             List<Supplier>? suppliers = await GetData<List<Supplier>>("Suppliers/GetAllSuppliers");
             return suppliers;
         }
+
+        public async Task<int> GetTotalPage(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
+        {
+            int totalPage = await GetData<int>("product/list/totalPage?" + "productName=" + productName
+                + "&supplierId=" + supplierId + "&categoryId=" + categoryId + "&pageIndex=" + pageIndex + "&isActive=" + isActive);
+            return totalPage;
+        }
     }
 }
