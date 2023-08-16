@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PRN231_G4_ProductManagement_BE.Models.Unit>
+﻿@model IEnumerable<PRN231_G4_ProductManagement_BE.Models.Store>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -62,16 +62,16 @@
                 Interface
             </div>
 
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUnit"
                    aria-expanded="true" aria-controls="collapseUnit">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Unit</span>
                 </a>
-                <div id="collapseUnit" class="collapse show" aria-labelledby="headingUnit" data-parent="#accordionSidebar">
+                <div id="collapseUnit" class="collapse " aria-labelledby="headingUnit" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Unit:</h6>
-                        <a class="collapse-item active" href="/Unit">List all</a>
+                        <a class="collapse-item " href="/Unit">List all</a>
                         <a class="collapse-item " href="/Unit/Create">Add Unit</a>
                     </div>
                 </div>
@@ -92,16 +92,16 @@
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStore"
                    aria-expanded="true" aria-controls="collapseStore">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Store</span>
                 </a>
-                <div id="collapseStore" class="collapse" aria-labelledby="headingStore" data-parent="#accordionSidebar">
+                <div id="collapseStore" class="collapse show" aria-labelledby="headingStore" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Store:</h6>
-                        <a class="collapse-item " href="/Store">List all</a>
+                        <a class="collapse-item active" href="/Store">List all</a>
                         <a class="collapse-item " href="/Store/Create">Add Store</a>
                     </div>
                 </div>
@@ -431,18 +431,18 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800" style="display: flex; justify-content: center;">Product Unit</h1>
+                        <h1 class="h3 mb-2 text-gray-800" style="display: flex; justify-content: center;">Store</h1>
                         <p class="mb-4">
                         </p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">List Product Unit</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">List Store</h6>
                             </div>
                             <div class="card-body">
-                                <a href="/Unit/Create" class="btn btn-primary btn-icon-split">
-                                    <span class="text">Create Unit</span>
+                                <a href="/Store/Create" class="btn btn-primary btn-icon-split">
+                                    <span class="text">Create Store</span>
                                 </a>
                                 <br />
                                 <div class="table-responsive">
@@ -450,14 +450,20 @@
                                         <thead>
                                             <tr>
                                                 <th>@Html.DisplayNameFor(model => model.Id)</th>
-                                                <th>@Html.DisplayNameFor(model => model.UnitType)</th>
+                                                <th>@Html.DisplayNameFor(model => model.StoreName)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Address)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Phone)</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th>@Html.DisplayNameFor(model => model.Id)</th>
-                                                <th>@Html.DisplayNameFor(model => model.UnitType)</th>
+                                                <th>@Html.DisplayNameFor(model => model.StoreName)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Address)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Phone)</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -466,10 +472,14 @@
                                             {
                                                 <tr>
                                                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                                    <td>@Html.DisplayFor(modelItem => item.UnitType)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.StoreName)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                                   
                                                     <td>
-                                                        <a asp-controller="Unit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
-                                                        <a asp-controller="Unit" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                                        <a asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
+                                                        <a asp-controller="Store" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                                     </td>
                                                 </tr>
                                             }
