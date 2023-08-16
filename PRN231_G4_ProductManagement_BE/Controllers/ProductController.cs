@@ -37,6 +37,20 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
             }
 
         }
+        [HttpGet("list/totalPage")]
+        public IActionResult GetTotalProductsPage(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
+        {
+            try
+            {
+                int totalPage = _productService.GetTotalProductPage(productName, supplierId, categoryId, pageIndex, isActive);
+                return Ok(totalPage);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
 
         [HttpGet("{id}")]
         public IActionResult GetProductById(int id)

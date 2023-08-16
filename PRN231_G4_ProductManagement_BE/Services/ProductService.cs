@@ -55,5 +55,17 @@ namespace PRN231_G4_ProductManagement_BE.Services
         {
             return _context.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).FirstOrDefault(x => x.Id == productId);
         }
+
+        public int GetTotalProductPage(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
+        {
+            List<Product> products = _context.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).ToList();
+            if (productName != null) products = products.Where(p => p.ProductName.ToLower().Contains(productName.ToLower())).ToList();
+            if (supplierId != null) products = products.Where(p => p.SupplierId == supplierId).ToList();
+            if (categoryId != null) products = products.Where(p => p.CategoryId == categoryId).ToList();
+            if (isActive == false) products = products.Where(p => p.Active == false).ToList();
+            if (isActive == true) products = products.Where(p => p.Active == true).ToList();
+            int totalPage = products.Count % pageSize == 0 ? products.Count / pageSize : products.Count / pageSize + 1;
+            return totalPage;
+        }
     }
 }
