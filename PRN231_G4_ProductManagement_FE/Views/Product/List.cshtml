@@ -1,0 +1,90 @@
+﻿@using PRN231_G4_ProductManagement_BE.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Product>
+@{
+}
+trang product
+<form method="get" action="/Product/List">
+    <div style="display:flex">
+        <div>
+            <label class="col-sm-2 col-form-label">Enter Product Name</label>
+            <input class="form-control" type="text" name="productName" />
+        </div>
+        <div>
+            Supplier:
+            <select class="form-select" name="supplierId" id="supplierId">
+                <option value="null">All Suppliers</option>
+                @foreach(Supplier s in ViewBag.Suppliers)
+                {
+                    if((int?)ViewData["supplierId"] == s.Id)
+                    {
+                        <option value="@s.Id" selected>@s.SupplierName</option>
+                    }
+                    else
+                    {
+                        <option value="@s.Id">@s.SupplierName</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div>
+            Category:
+            <select class="form-select" name="categoryId" id="categoryId">
+                <option value="null">All Categories</option>
+                @foreach(Category c in ViewBag.Categories)
+                {
+                    if((int?)ViewData["categoryId"] == c.Id)
+                    {
+                        <option value="@c.Id" selected>@c.CategoryType</option>
+                    }
+                    else
+                    {
+                        <option value="@c.Id">@c.CategoryType</option>
+                    }
+                    
+                }
+            </select>
+        </div>
+      
+        <input type="checkbox" name="isCheckbox" value="true"/> Is Active
+            
+       
+    </div>
+
+
+    <input type="submit" value="Search" />
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Profit Price</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in @Model)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.ProductName</td>
+                <td>@(p.Supplier != null ? p.Supplier.SupplierName : "nothing")</td>
+                <td>@(p.Category != null ? p.Category.CategoryType : "nothing")</td>
+                <td>@p.Price</td>
+                <td>@p.ProfitMoney</td>
+                <td>@p.Quantity</td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
