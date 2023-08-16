@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PRN231_G4_ProductManagement_BE\PRN231_G4_ProductManagement_BE.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
+  </ItemGroup>
+
 </Project>
