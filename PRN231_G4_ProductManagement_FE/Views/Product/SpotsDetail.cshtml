@@ -1,0 +1,34 @@
+﻿@using PRN231_G4_ProductManagement_BE.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Spot>
+@{
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Spot Code</th>
+            <th scope="col">Import Price</th>
+            <th scope="col">Import Quantity</th>
+            <th scope="col">Import Date</th>
+            <th scope="col">Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in @Model)
+        {
+            <tr>
+                <td>@p.SpotCode</td>
+                <td>@p.ImportPrice</td>
+                <td>@p.ImportQuantity</td>
+                <td>@p.ImportDate</td>
+                <td>@(p.IsActive == true ? "Available" : "Unavailable")</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

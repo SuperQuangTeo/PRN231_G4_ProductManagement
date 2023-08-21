@@ -1,0 +1,62 @@
+﻿@using PRN231_G4_ProductManagement_BE.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-controller="Product" asp-action="DoAddProduct">
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Product Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="newProduct.ProductName">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="newProduct.Description">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Quantity</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="newProduct.Quantity" min="1">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Price</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="newProduct.Price" min="1">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Profit Price</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="newProduct.ProfitMoney" min="1">
+        </div>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" checked name="newProduct.Active" value="true">
+        <label class="form-check-label" for="flexCheckDefault">
+            Is Active
+        </label>
+    </div>
+
+
+
+    <select class="form-select" name="newProduct.SupplierId" id="supplierId">
+        @foreach (Supplier s in ViewBag.Suppliers)
+        {
+            <option value="@s.Id">@s.SupplierName</option>
+        }
+    </select>
+    <select class="form-select" id="categoryId" name="newProduct.CategoryId">
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.Id">@c.CategoryType</option>
+        }
+
+    </select>
+
+    <input type="submit" value="Add Product" />
+</form>

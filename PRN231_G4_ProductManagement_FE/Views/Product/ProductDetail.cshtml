@@ -1,0 +1,97 @@
+﻿@using PRN231_G4_ProductManagement_BE.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Product
+@{
+}
+<form asp-controller="Product" asp-action="DoUpdateProduct">
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Id</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" name="updateProduct.Id" value="@Model.Id">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Product Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="updateProduct.ProductName" value="@Model.ProductName">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="updateProduct.Description" value="@Model.Description">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Quantity</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="updateProduct.Quantity" value="@Model.Quantity">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Price</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="updateProduct.Price" value="@Model.Price">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Profit Price</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="updateProduct.ProfitMoney" value="@Model.ProfitMoney">
+        </div>
+    </div>
+    @if (Model.Active == true)
+    {
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" checked name="updateProduct.Active" value="true">
+            <label class="form-check-label" for="flexCheckDefault">
+                Is Active
+            </label>
+        </div>
+    }
+    else
+    {
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="updateProduct.Active" value="false">
+            <label class="form-check-label" for="flexCheckDefault">
+                Is Active
+            </label>
+        </div>
+    }
+
+    <select class="form-select" name="updateProduct.SupplierId" id="supplierId">
+        @foreach (Supplier s in ViewBag.Suppliers)
+        {
+            if (Model.SupplierId == s.Id)
+            {
+                <option value="@s.Id" selected>@s.SupplierName</option>
+            }
+            else
+            {
+                <option value="@s.Id">@s.SupplierName</option>
+            }
+
+        }
+    </select>
+    <select class="form-select" id="categoryId" name="updateProduct.CategoryId">
+        @foreach (Category c in ViewBag.Categories)
+        {
+            if (Model.CategoryId == c.Id)
+            {
+                <option value="@c.Id" selected>@c.CategoryType</option>
+            }
+            else
+            {
+                <option value="@c.Id">@c.CategoryType</option>
+            }
+
+        }
+
+    </select>
+
+    <input type="submit" value="Update Product" />
+</form>
+
+

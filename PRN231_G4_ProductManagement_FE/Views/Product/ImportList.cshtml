@@ -1,0 +1,45 @@
+﻿@using PRN231_G4_ProductManagement_BE.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Import>
+@{
+}
+<form method="get" action="/Product/ImportList">
+    <span>
+        <input type="date" name="fromDate" />
+        <input type="date" name="toDate" />
+    </span>
+    <input type="submit" value="Search" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Category</th>
+            <th scope="col">Import Price</th>
+            <th scope="col">Import Quantity</th>
+            <th scope="col">Import Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in @Model)
+        {
+            <tr>
+                <td>@(p.Product != null ? p.Product.ProductName : "nothing")</td>
+                <td>@(p.Product != null && p.Product.Supplier != null ? p.Product.Supplier.SupplierName : "nothing")</td>
+                <td>@(p.Product != null && p.Product.Category != null ? p.Product.Category.CategoryType : "nothing")</td>
+                <td>@p.ImportPrice</td>
+                <td>@p.ImportQuantity</td>
+                <td>@p.ImportDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<span>
+    <a href="/Product/ImportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["pre"]">pre</a>
+    <a href="/Product/ImportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["next"]">next</a>
+</span>
