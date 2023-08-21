@@ -64,11 +64,13 @@ trang product
         <tr>
             <th scope="col">id</th>
             <th scope="col">Product Name</th>
+            <th scope="col">Description</th>
             <th scope="col">Supplier</th>
             <th scope="col">Category</th>
             <th scope="col">Price</th>
             <th scope="col">Profit Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -77,11 +79,20 @@ trang product
             <tr>
                 <td>@p.Id</td>
                 <td>@p.ProductName</td>
+                <td>@p.Description</td>
                 <td>@(p.Supplier != null ? p.Supplier.SupplierName : "nothing")</td>
                 <td>@(p.Category != null ? p.Category.CategoryType : "nothing")</td>
                 <td>@p.Price</td>
                 <td>@p.ProfitMoney</td>
                 <td>@p.Quantity</td>
+                <td>
+                    <a class="btn btn-info" asp-route-id="@p.Id" asp-controller="Product" asp-action="SpotsDetail">Spots Detail</a>
+                    <a class="btn btn-success" asp-route-id="@p.Id" asp-controller="Product" asp-action="ProductDetail">Product Detail</a>
+                    @if(p.Active == true){
+                        <a class="btn btn-warning" asp-route-id="@p.Id" asp-controller="Product" asp-action="ExportProductDetail">Export Product</a>
+                    }
+                    
+                </td>
 
             </tr>
         }
