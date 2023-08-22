@@ -23,7 +23,7 @@ namespace PRN231_G4_ProductManagement_FE.Controllers
         {
             ProductService productService = new ProductService();
             bool? isActive = null;
-            if (isCheckbox != null && isCheckbox.Equals("true"))
+            if (isCheckbox != null && isCheckbox.Equals("on") || isCheckbox != null && isCheckbox.Equals("true") || isCheckbox != null && isCheckbox.Equals("True"))
             {
                 isActive = true;
             }
@@ -39,7 +39,7 @@ namespace PRN231_G4_ProductManagement_FE.Controllers
             ViewData["productName"] = productName;
             ViewData["supplierId"] = supplierId;
             ViewData["categoryId"] = categoryId;
-            ViewData["isCheckbox"] = isCheckbox;
+            ViewData["isCheckbox"] = isActive;
             ViewData["pre"] = pageIndex - 1;
             ViewData["next"] = pageIndex + 1;
             ViewBag.Suppliers = productService.GetSuppliers().Result;
@@ -82,9 +82,17 @@ namespace PRN231_G4_ProductManagement_FE.Controllers
             return View(product);
         }
 
-        public IActionResult DoUpdateProduct(Product updateProduct)
+        public IActionResult DoUpdateProduct(Product updateProduct, string? isCheckbox)
         {
             ProductService productService = new ProductService();
+            if(isCheckbox != null && isCheckbox.Equals("on") || isCheckbox != null && isCheckbox.Equals("true") || isCheckbox != null && isCheckbox.Equals("True"))
+            {
+                updateProduct.Active = true;
+            }
+            else
+            {
+                updateProduct.Active = false;
+            }
             HttpStatusCode update = productService.UpdateProduct(updateProduct).Result;
             if (update == HttpStatusCode.OK)
             {
