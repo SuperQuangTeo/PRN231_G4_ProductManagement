@@ -9,7 +9,7 @@ namespace PRN231_G4_ProductManagement_BE.Services
     public class ProductService : IProductService
     {
         PRN231_Product_ManagementContext _context;
-        int pageSize = 15;
+        int pageSize = 7;
         public ProductService(PRN231_Product_ManagementContext context)
         {
             _context = context;
