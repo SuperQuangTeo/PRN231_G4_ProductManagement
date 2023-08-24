@@ -413,6 +413,7 @@
                                             <th scope="col">Export Quantity</th>
                                             <th scope="col">Export Date</th>
                                             <th scope="col">Store Name</th>
+                                            <th scope="col">Total Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -422,10 +423,11 @@
                                                 <td>@(p.Product != null ? p.Product.ProductName : "nothing")</td>
                                                 <td>@(p.Product != null && p.Product.Supplier != null ? p.Product.Supplier.SupplierName : "nothing")</td>
                                                 <td>@(p.Product != null && p.Product.Category != null ? p.Product.Category.CategoryType : "nothing")</td>
-                                                <td>@p.ExportPrice</td>
-                                                <td>@p.ExportQuantity</td>
+                                                <td class="Price">@p.ExportPrice</td>
+                                                <td class="Quantity">@p.ExportQuantity</td>
                                                 <td>@p.ExportDate</td>
                                                 <td>@(p.Store != null ? p.Store.StoreName : "nothing")</td>
+                                                <td class="TotalPrice" style="color:green"></td>
                                             </tr>
                                         }
                                     </tbody>
@@ -511,4 +513,19 @@
         }, 3000);
 
     });
+
+    calculate();
+
+    function calculate() {
+        var priceElements = document.getElementsByClassName("Price");
+        var quantityElements = document.getElementsByClassName("Quantity");
+        var totalPriceElements = document.getElementsByClassName("TotalPrice");
+
+        for (var i = 0; i < priceElements.length; i++) {
+            var price = parseInt(priceElements[i].textContent);
+            var quantity = parseInt(quantityElements[i].textContent);
+            var totalPrice = price * quantity;
+            totalPriceElements[i].textContent = totalPrice;
+        }
+    }
 </script>                                                                                                                                                          
