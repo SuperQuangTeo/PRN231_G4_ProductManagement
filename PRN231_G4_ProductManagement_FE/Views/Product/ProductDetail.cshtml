@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </li>
-            
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -394,7 +394,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Product Detail</h6>
                             </div>
                             <div class="card-body">
-                                <form asp-controller="Product" asp-action="DoUpdateProduct">
+                                <form>
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Id</label>
                                         <div class="col-sm-10">
@@ -431,24 +431,14 @@
                                             <input type="number" class="form-control" name="updateProduct.ProfitMoney" value="@Model.ProfitMoney">
                                         </div>
                                     </div>
-                                    @if (Model.Active == true)
-                                    {
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" checked name="updateProduct.Active" value="true">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Is Active
-                                            </label>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="isCheckbox" value="@(Model.Active == true ? "true" : null)" @(Model.Active == true ? "checked" : "")>
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Is Active
-                                            </label>
-                                        </div>
-                                    }
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="isCheckbox" value="@(Model.Active == true ? "true" : null)" @(Model.Active == true ? "checked" : "")>
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Is Active
+                                        </label>
+                                    </div>
+
 
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Supplier</label>
@@ -483,7 +473,8 @@
                                             }
                                         </select>
                                     </div>
-                                    <input type="submit" value="Update Product" />
+                                    <input asp-controller="Product" asp-action="DoUpdateProduct" class="btn btn-primary" type="submit" value="Update Product Info" />
+                                    <input asp-controller="Product" asp-action="DoUpdateProductAndImport" class="btn btn-success" type="submit" value="Update And Import Product" />
                                 </form>
 
 

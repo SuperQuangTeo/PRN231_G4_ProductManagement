@@ -398,7 +398,7 @@
                                     <div style="display:flex">
                                         <div>
                                             Enter Product Name
-                                            <input class="form-control" type="text" name="productName" />
+                                            <input class="form-control" type="text" name="productName"  value="@(ViewData["productName"] != null ? ViewData["productName"] : "")"/>
                                         </div>
                                         <div style="margin-left:20px">
                                             Supplier:

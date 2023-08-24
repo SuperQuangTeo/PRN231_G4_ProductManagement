@@ -29,7 +29,7 @@ namespace PRN231_G4_ProductManagement_BE.Services
         public List<Product> GetAllProducts(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
         {
             List<Product> products = _context.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).ToList();
-            if(productName != null) products = products.Where(p => p.ProductName.ToLower().Contains(productName.ToLower())).ToList();
+            if(productName != null) products = products.Where(p => (p.ProductName != null ? p.ProductName.ToLower() : "").Contains(productName.ToLower())).ToList();
             if(supplierId != null) products = products.Where(p => p.SupplierId == supplierId).ToList();
             if(categoryId != null) products = products.Where(p => p.CategoryId == categoryId).ToList();
             if(isActive == false) products = products.Where(p => p.Active == false).ToList();
@@ -118,7 +118,7 @@ namespace PRN231_G4_ProductManagement_BE.Services
         public int GetTotalProductPage(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
         {
             List<Product> products = _context.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).ToList();
-            if (productName != null) products = products.Where(p => p.ProductName.ToLower().Contains(productName.ToLower())).ToList();
+            if (productName != null) products = products.Where(p => (p.ProductName != null ? p.ProductName.ToLower() : "").Contains(productName.ToLower())).ToList();
             if (supplierId != null) products = products.Where(p => p.SupplierId == supplierId).ToList();
             if (categoryId != null) products = products.Where(p => p.CategoryId == categoryId).ToList();
             if (isActive == false) products = products.Where(p => p.Active == false).ToList();
@@ -227,7 +227,7 @@ namespace PRN231_G4_ProductManagement_BE.Services
         public List<Import> GetAllImports(DateTime? fromDate, DateTime? toDate, int pageIndex)
         {
             List<Import> imports = _context.Imports.Include(x => x.Product).ThenInclude(x => x.Supplier)
-                .Include(x => x.Product).ThenInclude(x => x.Category).Include(x => x.User).ToList();
+                .Include(x => x.Product).ThenInclude(x => x.Category).Include(x => x.User).OrderByDescending(x => x.ImportDate).ToList();
 
             if (fromDate != null) imports = imports.Where(x => x.ImportDate >= fromDate).ToList();
             if (toDate != null) imports = imports.Where(x => x.ImportDate <= toDate).ToList();
@@ -238,7 +238,7 @@ namespace PRN231_G4_ProductManagement_BE.Services
         public List<Export> GetAllExports(DateTime? fromDate, DateTime? toDate, int pageIndex)
         {
             List<Export> exports = _context.Exports.Include(x => x.Product).ThenInclude(x => x.Supplier)
-                .Include(x => x.Product).ThenInclude(x => x.Category).Include(x => x.Store).Include(x => x.User).ToList();
+                .Include(x => x.Product).ThenInclude(x => x.Category).Include(x => x.Store).Include(x => x.User).OrderByDescending(x => x.ExportDate).ToList();
 
             if(fromDate != null) exports = exports.Where(x => x.ExportDate >= fromDate).ToList();
             if(toDate != null) exports = exports.Where(x => x.ExportDate <= toDate).ToList();
