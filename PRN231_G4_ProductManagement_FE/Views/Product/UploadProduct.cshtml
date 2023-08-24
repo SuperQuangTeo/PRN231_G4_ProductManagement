@@ -1,11 +1,8 @@
-﻿@using PRN231_G4_ProductManagement_BE.Models
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<Product>
 @{
 }
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,7 +138,7 @@
                 </div>
             </li>
 
-            
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -394,147 +391,68 @@
                                 <h6 class="m-0 font-weight-bold text-primary">List Product</h6>
                             </div>
                             <div class="card-body">
-                                <form method="get" action="/Product/List">
-                                    <div style="display:flex">
-                                        <div>
-                                            Enter Product Name
-                                            <input class="form-control" type="text" name="productName" />
+                                <div class="container mt-5">
+                                    <div class="d-flex align-items-end flex-row-reverse bd-highlight">
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" id="btnTemp" class="button is-info">Download template</button>
                                         </div>
-                                        <div style="margin-left:20px">
-                                            Supplier:
-                                            <select class="form-select" name="supplierId" id="supplierId">
-                                                <option value="null">All Suppliers</option>
-                                                @foreach (Supplier s in ViewBag.Suppliers)
-                                                {
-                                                    if ((int?)ViewData["supplierId"] == s.Id)
-                                                    {
-                                                        <option value="@s.Id" selected>@s.SupplierName</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@s.Id">@s.SupplierName</option>
-                                                    }
-
-                                                }
-                                            </select>
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" id="btnUpload" class="button is-primary">Upload</button>
                                         </div>
-                                        <div style="margin-left:20px">
-                                            Category:
-                                            <select class="form-select" name="categoryId" id="categoryId">
-                                                <option value="null">All Categories</option>
-                                                @foreach (Category c in ViewBag.Categories)
-                                                {
-                                                    if ((int?)ViewData["categoryId"] == c.Id)
-                                                    {
-                                                        <option value="@c.Id" selected>@c.CategoryType</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@c.Id">@c.CategoryType</option>
-                                                    }
-
-                                                }
-                                            </select>
+                                        <div class="p-2 bd-highlight">
+                                            <label for="formFile" class="form-label">Excel file please</label>
+                                            <input class="form-control"
+                                                   type="file"
+                                                   accept=".xls, .xlsx, application/vnd.ms-excel"
+                                                   id="formFile" />
                                         </div>
-                                        <div  style="margin-left:20px">
-                                            @if ((bool?)ViewData["isCheckbox"] == true)
-                                            {
-                                                <input type="checkbox" name="isCheckbox" value="true" checked />
-
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" name="isCheckbox" />
-
-                                            }
-                                            Is Active
-
-                                        </div>
-
-
                                     </div>
 
-
-                                    <input class="btn btn-secondary" type="submit" value="Search" />
-                                </form>
-                                <div class="p-2 bd-highlight">
-                                    <a href="/Product/UploadProduct" class="button is-info">Upload</a>
-                                </div>
-                                <div class="p-2 bd-highlight">
-                                    <a href="#" class="button is-link" id="aTemp">Download</a>
-                                </div>
-                                <br />
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">id</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Description</th>
-                                                <th scope="col">Supplier</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Profit Price</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var p in @Model)
-                                            {
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <td>@p.Id</td>
-                                                    <td>@p.ProductName</td>
-                                                    <td>@p.Description</td>
-                                                    <td>@(p.Supplier != null ? p.Supplier.SupplierName : "nothing")</td>
-                                                    <td>@(p.Category != null ? p.Category.CategoryType : "nothing")</td>
-                                                    <td>@p.Price</td>
-                                                    <td>@p.ProfitMoney</td>
-                                                    <td>@p.Quantity</td>
-                                                    <td>
-                                                        <a class="btn btn-info" asp-route-id="@p.Id" asp-controller="Product" asp-action="SpotsDetail">Spots Detail</a>
-                                                        <a class="btn btn-success" asp-route-id="@p.Id" asp-controller="Product" asp-action="ProductDetail">Product Detail</a>
-                                                        @if (p.Active == true)
-                                                        {
-                                                            <a class="btn btn-warning" asp-route-id="@p.Id" asp-controller="Product" asp-action="ExportProductDetail">Export Product</a>
-                                                        }
-
-                                                    </td>
-
+                                                    <th scope="col">id</th>
+                                                    <th scope="col">Product Name</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Supplier</th>
+                                                    <th scope="col">Category</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Profit Price</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
-                                            }
+                                            </thead>
+                                            <tbody id="tableProduct">
 
-                                        </tbody>
-                                    </table>
-                                    <span>
-                                        <a class="btn btn-outline-secondary" href="/Product/List?productName=@ViewData["productName"]&supplierId=@ViewData["supplierId"]&categoryId=@ViewData["categoryId"]&pageIndex=@ViewData["pre"]&isCheckbox=@ViewData["isCheckbox"]">pre</a>
-                                        <a class="btn btn-outline-secondary" href="/Product/List?productName=@ViewData["productName"]&supplierId=@ViewData["supplierId"]&categoryId=@ViewData["categoryId"]&pageIndex=@ViewData["next"]&isCheckbox=@ViewData["isCheckbox"]">next</a>
-                                    </span>
+                                                </tbody">
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.container-fluid -->
+                    <!-- /.container-fluid -->
 
+
+                </div>
+                <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- End of Page Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
@@ -572,43 +490,9 @@
     <!-- Custom scripts for all pages-->
     <script src="~/js/sb-admin-2.min.js"></script>
     <script src="~/js/code.jquery.com_jquery-3.7.0.min.js"></script>
+    <script src="~/js/uploadProduct.js"></script>
 
 </body>
 
 </html>
-<script>
-    $(document).ready(function () {
-        setTimeout(function () {
-            $("#success-alert").fadeOut("slow", function () {
-                $(this).remove();
-            });
-            $("#error-alert").fadeOut("slow", function () {
-                $(this).remove();
-            });
-        }, 3000);
 
-    });
-
-
-    $(document).ready(function () {
-        $('#aTemp').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:5222/api/Excel/ExportProductToExcel',
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function (result) {
-                    var blob = result;
-                    var downloadUrl = URL.createObjectURL(blob);
-                    var a = document.createElement("a");
-                    a.href = downloadUrl;
-                    a.download = "all-product.xlsx";
-                    document.body.appendChild(a);
-                    a.click();
-                }
-            });
-        });
-    });
-</script>

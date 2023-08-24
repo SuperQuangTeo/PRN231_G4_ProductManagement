@@ -5,6 +5,8 @@ using PRN231_G4_ProductManagement_BE.DTO;
 using PRN231_G4_ProductManagement_BE.IService;
 using PRN231_G4_ProductManagement_BE.Models;
 using PRN231_G4_ProductManagement_BE.Services;
+using PRN231_G4_ProductManagement_BE.Utilities;
+using System.Net;
 
 namespace PRN231_G4_ProductManagement_BE.Controllers
 {
@@ -188,6 +190,31 @@ namespace PRN231_G4_ProductManagement_BE.Controllers
                 return BadRequest(ex.ToString());
             }
 
+        }
+
+        [HttpPost]
+        [Route("addRange")]
+        public ResponseBody<string> addRange(List<ProductDTO> list)
+        {
+            try
+            {
+                var rs = _mapper.Map<List<Product>>(list);
+               
+                ExcelService.addProductFromExcel(rs);
+                return new ResponseBody<string>()
+                {
+                    code = HttpStatusCode.OK,
+                    message = Resource.SUCCESSFULLY,
+                };
+            }
+            catch (Exception e)
+            {
+                return new ResponseBody<string>()
+                {
+                    code = HttpStatusCode.BadRequest,
+                    message = Resource.FAILED + e.Message,
+                };
+            }
         }
     }
 }
