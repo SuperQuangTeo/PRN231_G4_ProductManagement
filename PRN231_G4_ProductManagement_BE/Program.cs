@@ -43,6 +43,7 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 //==============================================================
 
+builder.Services.AddCors();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -77,7 +78,8 @@ if (app.Environment.IsDevelopment())
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors(o =>
+o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.MapControllers();
 
 app.Run();

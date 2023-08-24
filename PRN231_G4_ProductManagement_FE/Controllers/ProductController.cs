@@ -153,5 +153,10 @@ namespace PRN231_G4_ProductManagement_FE.Controllers
             Exports = productService.GetExportList(fromDate, toDate, pageIndex).Result;
             return View(Exports);
         }
+        public IActionResult UploadProduct()
+        {
+            return View();
+
+        }
     }
 }

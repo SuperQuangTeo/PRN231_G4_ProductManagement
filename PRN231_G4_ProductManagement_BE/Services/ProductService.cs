@@ -15,6 +15,17 @@ namespace PRN231_G4_ProductManagement_BE.Services
             _context = context;
         }
 
+        public ProductService()
+        {
+        }
+        public List<Product> allProduct()
+        {
+            using (var context1 = new PRN231_Product_ManagementContext())
+            {
+                List<Product> products = context1.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).ToList();
+                return products;
+            }
+        }
         public List<Product> GetAllProducts(string? productName, int? supplierId, int? categoryId, int pageIndex, bool? isActive)
         {
             List<Product> products = _context.Products.Include(x => x.Supplier).Include(x => x.Category).Include(x => x.Unit).ToList();
