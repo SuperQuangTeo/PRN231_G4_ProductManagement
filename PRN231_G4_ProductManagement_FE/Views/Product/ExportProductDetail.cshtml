@@ -404,19 +404,19 @@
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Product Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" readonly name="" value="@Model.ProductName">
+                                            <input type="text" class="form-control" readonly name="" value="@Model.ProductName" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Quantity</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="exportProduct.ExportQuantity" min="1" value="1">
+                                            <input type="number" class="form-control" name="exportProduct.ExportQuantity" min="1" value="1" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Price</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" readonly name="exportProduct.ExportPrice" min="1" value="@Model.ProfitMoney">
+                                            <input type="number" class="form-control" readonly name="exportProduct.ExportPrice" min="1" value="@Model.ProfitMoney" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

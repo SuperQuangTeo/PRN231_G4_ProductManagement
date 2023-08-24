@@ -427,15 +427,15 @@
                                                 <td class="Quantity">@p.ExportQuantity</td>
                                                 <td>@p.ExportDate</td>
                                                 <td>@(p.Store != null ? p.Store.StoreName : "nothing")</td>
-                                                <td class="TotalPrice" style="color:green"></td>
+                                                <td class="TotalPrice" style="color:mediumspringgreen"></td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
 
                                 <span>
-                                    <a class="btn btn-outline-secondary" href="/Product/ExportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["pre"]">pre</a>
-                                    <a class="btn btn-outline-secondary" href="/Product/ExportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["next"]">next</a>
+                                    <a class="btn btn-outline-secondary" href="/Product/ExportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["pre"]">Previous</a>
+                                    <a class="btn btn-outline-secondary" href="/Product/ExportList?fromDate=@ViewData["fromDate"]&toDate=@ViewData["toDate"]&pageIndex=@ViewData["next"]">Next</a>
                                 </span>
                             </div>
                         </div>
